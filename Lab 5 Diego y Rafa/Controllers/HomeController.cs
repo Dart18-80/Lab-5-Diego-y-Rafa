@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Lab_5_Diego_y_Rafa.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Lab_5_Diego_y_Rafa.Controllers
 {
@@ -27,7 +28,35 @@ namespace Lab_5_Diego_y_Rafa.Controllers
         {
             return View();
         }
+        public IActionResult Tarea() 
+        {
+            return View();
+        }
+        [HttpPost]
 
+        public IActionResult Tarea(IFormCollection collection)
+        {
+            try
+            {
+                
+                var NewPlayer = new Models.NodoHash
+                {
+                    Titulo = collection["Titulo"],
+                    Desciprcion = collection["Desciprcion"],
+                    Proyecto = collection["Proyecto"],
+                    Prioridad = collection["Prioridad"],
+                    Fehca =Convert.ToDateTime(collection["Fehca"]),
+                };
+
+
+                return View();
+
+            }
+            catch
+            {
+                return View();
+            }
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
