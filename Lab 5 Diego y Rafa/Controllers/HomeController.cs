@@ -86,7 +86,19 @@ namespace Lab_5_Diego_y_Rafa.Controllers
         }
         public IActionResult ListasTareas()
         {
+            string Cargo = null;
+            for (int i = 0; i < Singleton.Instance.TablaUsuario.Count; i++)
+            {
+                if (Singleton.Instance.TablaUsuario[i].NombreUsuario==nomrecola)
+                {
+                    Cargo = Singleton.Instance.TablaUsuario[i].Cargo;
+                    i = Singleton.Instance.TablaUsuario.Count - 1;
+                }
+            }
+            if (Cargo=="Developer")
+            {
 
+            }
             return View(Singleton.Instance.ListaTarea);
         }
         [HttpPost]
