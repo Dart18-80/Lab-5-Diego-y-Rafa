@@ -13,6 +13,8 @@ namespace Lab_5_Diego_y_Rafa.Controllers
 {
     public class HomeController : Controller
     {
+        public static TablaHash Tabla = new TablaHash(50);
+        public static string nomrecola = null;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -49,6 +51,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                     {
                         if (Singleton.Instance.TablaUsuario[contador].NombreUsuario==NuevoCliente.NombreUsuario && Singleton.Instance.TablaUsuario[contador].Conntraseña == NuevoCliente.Conntraseña)
                         {
+                            nomrecola = NuevoCliente.NombreUsuario;
                             return RedirectToAction("Tarea");
                         }
                         else
@@ -80,6 +83,23 @@ namespace Lab_5_Diego_y_Rafa.Controllers
         {
 
             return View();
+        }
+        public IActionResult ListasTareas()
+        {
+            string Cargo = null;
+            for (int i = 0; i < Singleton.Instance.TablaUsuario.Count; i++)
+            {
+                if (Singleton.Instance.TablaUsuario[i].NombreUsuario==nomrecola)
+                {
+                    Cargo = Singleton.Instance.TablaUsuario[i].Cargo;
+                    i = Singleton.Instance.TablaUsuario.Count - 1;
+                }
+            }
+            if (Cargo=="Developer")
+            {
+
+            }
+            return View(Singleton.Instance.ListaTarea);
         }
         [HttpPost]
         public IActionResult CrearUsuario(IFormCollection collection)
@@ -132,16 +152,33 @@ namespace Lab_5_Diego_y_Rafa.Controllers
         {
             try
             {
-                
-                var NewPlayer = new Models.NodoHash
+                string TareaError = null;
+                var NuevaTarea = new Models.NodoHash
                 {
                     Titulo = collection["Titulo"],
                     Desciprcion = collection["Desciprcion"],
                     Proyecto = collection["Proyecto"],
-                    Prioridad = collection["Prioridad"],
+                    Prioridad = Convert.ToInt32(collection["Prioridad"]),
                     Fehca =Convert.ToDateTime(collection["Fehca"]),
                 };
-
+                int posicion = Tabla.FuncionHash(NuevaTarea.Titulo);
+                if (Tabla.ArrayHash[posicion].lista==null)
+                {
+                    Tabla.AgregarTarea(posicion, NuevaTarea);
+                }
+                else
+                {
+                    for (int i = 0; i < Tabla.ArrayHash[posicion].lista.Length; i++)
+                    {
+                        if (Tabla.ArrayHash[posicion].lista[i].Titulo==NuevaTarea.Titulo)
+                        {
+                            TareaError = "Titulo de la Tarea ya existente";
+                            ViewData["ErrorTarea"] = TareaError;
+                            return View();
+                        }
+                    }
+                    Tabla.AgregarTarea(posicion, NuevaTarea);
+                }
 
                 return View();
 

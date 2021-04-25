@@ -33,15 +33,15 @@ namespace Lab_5_Diego_y_Rafa.Models
         public int FuncionHash(string Titulo)
         {
             int suma = 0;
-            int indice = ((Titulo.Length*10)%20)*FuncionCadena(Titulo)%25;
+            int indice = (Titulo.Length*10)*FuncionCadena(Titulo)%25;
             return indice;
         }
 
         public int FuncionCadena(string Titulo)
         {
-            Titulo.ToUpper();
+            string a=Titulo.ToUpper();
             string TituloJunto = Regex.Replace(Titulo, @"\s", "");
-            char[] cadena = TituloJunto.ToArray();
+            Char[] cadena = a.ToArray();
             int cont = TituloJunto.Length;
             int Func = 0;
             for (int i = 0; i < cont; i++)
@@ -130,7 +130,7 @@ namespace Lab_5_Diego_y_Rafa.Models
                         Func += 27;
                         break;
                     default:
-
+                        Func += 1;
                         break;
                 }
             }
