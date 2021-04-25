@@ -97,9 +97,18 @@ namespace Lab_5_Diego_y_Rafa.Controllers
             }
             if (Cargo=="Developer")
             {
-
+                return View(Singleton.Instance.ListaTarea);
             }
-            return View(Singleton.Instance.ListaTarea);
+            else if(Cargo=="Manager")
+            {
+                return View(Singleton.Instance.ListaTarea);
+            }
+            else
+            {
+                return View(Singleton.Instance.ListaTarea);
+            }
+            return View();
+          
         }
         [HttpPost]
         public IActionResult CrearUsuario(IFormCollection collection)
