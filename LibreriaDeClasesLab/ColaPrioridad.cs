@@ -7,6 +7,13 @@ namespace LibreriaDeClasesLab
         NodoPrioridad<T> Primero;
         NodoPrioridad<T> Ultimo;
 
+        public NodoPrioridad<T> CrearNodo(T Data) 
+        {
+            NodoPrioridad<T> Nuevo = new NodoPrioridad<T>();
+            Nuevo.Data = Data;
+            return Nuevo;
+        }
+
         public void InsertQueu(NodoPrioridad<T> Nuevo)
         {
             if (Primero == null)
