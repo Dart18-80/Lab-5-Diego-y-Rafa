@@ -4,17 +4,6 @@ namespace LibreriaDeClasesLab
 {
     public class ColaPrioridad
     {
-        public string Nombre { get; set; }
-        public int Prioridad { get; set; }
-        public int Recorrido { get; set; }
-        public NodoPrioridad Derecha { get; set; }
-        public NodoPrioridad Izquierda { get; set; }
-        public NodoPrioridad Siguiente { get; set; }
-        public NodoPrioridad Arriba { get; set; }
-    }
-
-    public class ColaPrioridad
-    {
         NodoPrioridad Primero;
         NodoPrioridad Ultimo;
 
