@@ -101,6 +101,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
             }
             else if(Cargo=="Manager")
             {
+                Singleton.Instance.Usuario1
                 return View(Singleton.Instance.ListaTarea);
             }
             else
@@ -170,10 +171,18 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                     Prioridad = Convert.ToInt32(collection["Prioridad"]),
                     Fehca =Convert.ToDateTime(collection["Fehca"]),
                 };
+                var NuevaTareaCola = new Models.TareaCola
+                {
+                    Nombre = collection["Titulo"],
+                    Prioridad = Convert.ToInt32(collection["Prioridad"]),
+
+                };
                 int posicion = Tabla.FuncionHash(NuevaTarea.Titulo);
                 if (Tabla.ArrayHash[posicion].lista==null)
                 {
                     Tabla.AgregarTarea(posicion, NuevaTarea);
+                    Singleton.Instance.Usuario1.InsertQueu(Singleton.Instance.Usuario1.CrearNodo(NuevaTareaCola));
+                    Singleton.Instance.Usuario1.HeapSort();
                 }
                 else
                 {
@@ -187,6 +196,9 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                         }
                     }
                     Tabla.AgregarTarea(posicion, NuevaTarea);
+                    Singleton.Instance.Usuario1.InsertQueu(Singleton.Instance.Usuario1.CrearNodo(NuevaTareaCola));
+                    Singleton.Instance.Usuario1.HeapSort();
+
                 }
 
                 return View();
