@@ -13,6 +13,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
 {
     public class HomeController : Controller
     {
+        public static TablaHash Tabla = new TablaHash(50);
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -132,8 +133,8 @@ namespace Lab_5_Diego_y_Rafa.Controllers
         {
             try
             {
-                
-                var NewPlayer = new Models.NodoHash
+                string TareaError = null;
+                var NuevaTarea = new Models.NodoHash
                 {
                     Titulo = collection["Titulo"],
                     Desciprcion = collection["Desciprcion"],
@@ -141,8 +142,8 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                     Prioridad = collection["Prioridad"],
                     Fehca =Convert.ToDateTime(collection["Fehca"]),
                 };
-
-
+                int posicion = Tabla.FuncionHash(NuevaTarea.Titulo);
+                Tabla.AgregarTarea(posicion, NuevaTarea);
                 return View();
 
             }
