@@ -10,7 +10,7 @@ namespace Lab_5_Diego_y_Rafa.Models
         public string Nombre { get; set; }
         public int Prioridad { get; set; }
 
-        public int CompareToNombre(TareaCola Ultimo, TareaCola Arriba)
+        public int CompareToPrioridad(TareaCola Ultimo, TareaCola Arriba)
         {
             return Ultimo.Prioridad.CompareTo(Arriba.Prioridad);
         }

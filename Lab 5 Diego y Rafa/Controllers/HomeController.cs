@@ -17,6 +17,9 @@ namespace Lab_5_Diego_y_Rafa.Controllers
         public static string nomrecola = null;
         private readonly ILogger<HomeController> _logger;
 
+        delegate int Delagados(TareaCola Tarea1, TareaCola Tarea2);
+        TareaCola CallTareas = new TareaCola();
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -101,7 +104,6 @@ namespace Lab_5_Diego_y_Rafa.Controllers
             }
             else if(Cargo=="Manager")
             {
-                Singleton.Instance.Usuario1
                 return View(Singleton.Instance.ListaTarea);
             }
             else
@@ -178,17 +180,18 @@ namespace Lab_5_Diego_y_Rafa.Controllers
 
                 };
                 int posicion = Tabla.FuncionHash(NuevaTarea.Titulo);
-                if (Tabla.ArrayHash[posicion].lista==null)
+                if (Tabla.ArrayHash[posicion].lista == null)
                 {
                     Tabla.AgregarTarea(posicion, NuevaTarea);
                     Singleton.Instance.Usuario1.InsertQueu(Singleton.Instance.Usuario1.CrearNodo(NuevaTareaCola));
-                    Singleton.Instance.Usuario1.HeapSort();
+                    Delagados Mayor = new Delagados(CallTareas.CompareToPrioridad);
+                    Singleton.Instance.Usuario1.HeapSort(Mayor);
                 }
                 else
                 {
                     for (int i = 0; i < Tabla.ArrayHash[posicion].lista.Length; i++)
                     {
-                        if (Tabla.ArrayHash[posicion].lista[i].Titulo==NuevaTarea.Titulo)
+                        if (Tabla.ArrayHash[posicion].lista[i].Titulo == NuevaTarea.Titulo)
                         {
                             TareaError = "Titulo de la Tarea ya existente";
                             ViewData["ErrorTarea"] = TareaError;
@@ -197,12 +200,13 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                     }
                     Tabla.AgregarTarea(posicion, NuevaTarea);
                     Singleton.Instance.Usuario1.InsertQueu(Singleton.Instance.Usuario1.CrearNodo(NuevaTareaCola));
-                    Singleton.Instance.Usuario1.HeapSort();
+                    Delagados Mayor = new Delagados(CallTareas.CompareToPrioridad);
+                    Singleton.Instance.Usuario1.HeapSort(Mayor);
 
+
+
+                    return View();
                 }
-
-                return View();
-
             }
             catch
             {
