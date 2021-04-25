@@ -4,14 +4,12 @@ using System.Text;
 
 namespace LibreriaDeClasesLab
 {
-    public class NodoPrioridad
+    public class NodoPrioridad<T>
     {
-        public string Nombre { get; set; }
-        public int Prioridad { get; set; }
-        public int Recorrido { get; set; }
-        public NodoPrioridad Derecha { get; set; }
-        public NodoPrioridad Izquierda { get; set; }
-        public NodoPrioridad Siguiente { get; set; }
-        public NodoPrioridad Arriba { get; set; }
+        public T Data { get; set; }
+        public NodoPrioridad<T> Derecha { get; set; }
+        public NodoPrioridad<T> Izquierda { get; set; }
+        public NodoPrioridad<T> Siguiente { get; set; }
+        public NodoPrioridad<T> Arriba { get; set; }
     }
 }
