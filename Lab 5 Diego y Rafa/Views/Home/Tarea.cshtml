@@ -6,8 +6,14 @@
 
 <h1>Tarea</h1>
 
-<h4>NodoHash</h4>
+<h3>NodoHash</h3>
 <hr />
+<style>
+    h4 {
+        color: #FF0101;
+    }
+</style>
+<h4>@ViewData["ErrorTarea"] </h4>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Tarea">
@@ -53,7 +59,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Regresar a mis tareas</a>
 </div>
 
 @section Scripts {
