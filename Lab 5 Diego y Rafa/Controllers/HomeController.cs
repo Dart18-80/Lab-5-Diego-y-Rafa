@@ -54,8 +54,16 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                     {
                         if (Singleton.Instance.TablaUsuario[contador].NombreUsuario==NuevoCliente.NombreUsuario && Singleton.Instance.TablaUsuario[contador].Conntraseña == NuevoCliente.Conntraseña)
                         {
-                            nomrecola = NuevoCliente.NombreUsuario;
-                            return RedirectToAction("Tarea");
+                            if (Singleton.Instance.TablaUsuario[contador].Cargo=="Manager")
+                            {
+                                nomrecola = NuevoCliente.NombreUsuario;
+                                return RedirectToAction("ListasTareas");
+                            }
+                            else
+                            {
+                                nomrecola = NuevoCliente.NombreUsuario;
+                                return RedirectToAction("Tarea");
+                            }
                         }
                         else
                         {
@@ -98,20 +106,41 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                     i = Singleton.Instance.TablaUsuario.Count - 1;
                 }
             }
-            if (Cargo=="Developer")
+            if (true)//////////////////////////////
             {
-                return View(Singleton.Instance.ListaTarea);
+                if (Cargo == "Developer")
+                {
+                    return View(Singleton.Instance.ListaTarea);
+                }
+                else if (Cargo == "Manager")
+                {
+
+                    Delagados Mayor = new Delagados(CallTareas.CompareToPrioridad);
+                    string NombredeUusario = Singleton.Instance.Usuario1.returnNode(Mayor).Nombre;
+                    Singleton.Instance.Usuario1.HeapSort(Mayor);
+                    int posicion = Tabla.FuncionHash(NombredeUusario);
+                    for (int i = 0; i < Tabla.ArrayHash[posicion].lista.Length; i++)
+                    {
+                        if (Tabla.ArrayHash[posicion].lista[i].Titulo == NombredeUusario)
+                        {
+                            var NuevoTarea = new Models.NodoHash
+                            {
+                                Titulo = Tabla.ArrayHash[posicion].lista[i].Titulo,
+                                Desciprcion = Tabla.ArrayHash[posicion].lista[i].Desciprcion,
+                                Proyecto = Tabla.ArrayHash[posicion].lista[i].Proyecto,
+                                Prioridad = Tabla.ArrayHash[posicion].lista[i].Prioridad,
+                                Fehca = Tabla.ArrayHash[posicion].lista[i].Fehca
+                            };
+                            Singleton.Instance.ListaTarea.Add(NuevoTarea);
+                        }
+                    }
+                    return View(Singleton.Instance.ListaTarea);
+                }
+                else
+                {
+                    return View(Singleton.Instance.ListaTarea);
+                }
             }
-            else if(Cargo=="Manager")
-            {
-                return View(Singleton.Instance.ListaTarea);
-            }
-            else
-            {
-                return View(Singleton.Instance.ListaTarea);
-            }
-            return View();
-          
         }
         [HttpPost]
         public IActionResult CrearUsuario(IFormCollection collection)
@@ -186,6 +215,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                     Singleton.Instance.Usuario1.InsertQueu(Singleton.Instance.Usuario1.CrearNodo(NuevaTareaCola));
                     Delagados Mayor = new Delagados(CallTareas.CompareToPrioridad);
                     Singleton.Instance.Usuario1.HeapSort(Mayor);
+                    return View();
                 }
                 else
                 {
@@ -202,9 +232,6 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                     Singleton.Instance.Usuario1.InsertQueu(Singleton.Instance.Usuario1.CrearNodo(NuevaTareaCola));
                     Delagados Mayor = new Delagados(CallTareas.CompareToPrioridad);
                     Singleton.Instance.Usuario1.HeapSort(Mayor);
-
-
-
                     return View();
                 }
             }
