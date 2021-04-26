@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Lab_5_Diego_y_Rafa.Models;
 using Microsoft.AspNetCore.Http;
 using Lab_5_Diego_y_Rafa.Helpers;
+using LibreriaDeClasesLab;
 
 namespace Lab_5_Diego_y_Rafa.Controllers
 {
@@ -97,6 +98,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
         }
         public IActionResult ListasTareas()
         {
+            Delagados Mayor = new Delagados(CallTareas.CompareToPrioridad);
             string Cargo = null;
             for (int i = 0; i < Singleton.Instance.TablaUsuario.Count; i++)
             {
@@ -110,13 +112,30 @@ namespace Lab_5_Diego_y_Rafa.Controllers
             {
                 if (Cargo == "Developer")
                 {
-
+                    ColaPrioridad<TareaCola> LLamado = new ColaPrioridad<TareaCola>();
+                    LLamado = Singleton.Instance.ColasDePrioridad.RetornarEstructura(nomrecola);
+                    Singleton.Instance.TareasUsuarios = LLamado.Tareas();
+                    for (int i = 0; i<Singleton.Instance.TablaUsuario.Count;i++) 
+                    {
+                        int posicion = Tabla.FuncionHash(Singleton.Instance.TareasUsuarios[i].Nombre);
+                        if(Tabla.ArrayHash[posicion].lista[i].Titulo == Singleton.Instance.TareasUsuarios[i].Nombre)
+                        {
+                            var NuevoTarea = new Models.NodoHash
+                            {
+                                Titulo = Tabla.ArrayHash[posicion].lista[i].Titulo,
+                                Desciprcion = Tabla.ArrayHash[posicion].lista[i].Desciprcion,
+                                Proyecto = Tabla.ArrayHash[posicion].lista[i].Proyecto,
+                                Prioridad = Tabla.ArrayHash[posicion].lista[i].Prioridad,
+                                Fehca = Tabla.ArrayHash[posicion].lista[i].Fehca
+                            };
+                            Singleton.Instance.ListaTarea.Add(NuevoTarea);
+                        }
+                    }
                     return View(Singleton.Instance.ListaTarea);
                 }
                 else if (Cargo == "Manager")
                 {
-
-                    Delagados Mayor = new Delagados(CallTareas.CompareToPrioridad);
+                    
                     string NombredeUusario = Singleton.Instance.Usuario1.returnNode(Mayor).Nombre;
                     Singleton.Instance.Usuario1.HeapSort(Mayor);
                     int posicion = Tabla.FuncionHash(NombredeUusario);
@@ -213,10 +232,11 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                 if (Tabla.ArrayHash[posicion].lista == null)
                 {
                     Tabla.AgregarTarea(posicion, NuevaTarea);
-                    Singleton.Instance.Usuario1.InsertQueu(Singleton.Instance.Usuario1.CrearNodo(NuevaTareaCola));
-                    Singleton.Instance.ColasDePrioridad.Encolar(Singleton.Instance.ColasDePrioridad.CrearEstructura(nomrecola));
+                    ColaPrioridad<TareaCola> LLamado = new ColaPrioridad<TareaCola>();
+                    Singleton.Instance.ColasDePrioridad.Encolar(Singleton.Instance.ColasDePrioridad.CrearEstructura(nomrecola, LLamado));
+                    Singleton.Instance.ColasDePrioridad.RetornarEstructura(nomrecola).InsertQueu(Singleton.Instance.ColasDePrioridad.RetornarEstructura(nomrecola).CrearNodo(NuevaTareaCola));
                     Delagados Mayor = new Delagados(CallTareas.CompareToPrioridad);
-                    Singleton.Instance.Usuario1.HeapSort(Mayor);
+                    Singleton.Instance.ColasDePrioridad.RetornarEstructura(nomrecola).HeapSort(Mayor);
                     return View();
                 }
                 else
@@ -231,10 +251,11 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                         }
                     }
                     Tabla.AgregarTarea(posicion, NuevaTarea);
-                    Singleton.Instance.Usuario1.InsertQueu(Singleton.Instance.Usuario1.CrearNodo(NuevaTareaCola));
-                    Singleton.Instance.ColasDePrioridad.Encolar(Singleton.Instance.ColasDePrioridad.CrearEstructura(nomrecola));
+                    ColaPrioridad<TareaCola> LLamado = new ColaPrioridad<TareaCola>();
+                    Singleton.Instance.ColasDePrioridad.Encolar(Singleton.Instance.ColasDePrioridad.CrearEstructura(nomrecola,LLamado));
+                    Singleton.Instance.ColasDePrioridad.RetornarEstructura(nomrecola).InsertQueu(Singleton.Instance.ColasDePrioridad.RetornarEstructura(nomrecola).CrearNodo(NuevaTareaCola));
                     Delagados Mayor = new Delagados(CallTareas.CompareToPrioridad);
-                    Singleton.Instance.Usuario1.HeapSort(Mayor);
+                    Singleton.Instance.ColasDePrioridad.RetornarEstructura(nomrecola).HeapSort(Mayor);
                     return View();
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace LibreriaDeClasesLab
 {
@@ -133,8 +134,8 @@ namespace LibreriaDeClasesLab
 
         public T returnNode(Delegate Condicion)
         {
-           T Aux = Primero.Data;
-           Primero.Data = Ultimo.Data;
+            T Aux = Primero.Data;
+            Primero.Data = Ultimo.Data;
             if (Primero.Siguiente != null)
             {
                 Delete(Primero, Primero.Siguiente, Condicion);
@@ -164,5 +165,33 @@ namespace LibreriaDeClasesLab
                
             }
         }
+
+        public List<T> Tareas() 
+        {
+            List<T> Nueva = new List<T>();
+            if (Primero != null)
+            {
+                Nueva.Add(Primero.Data);
+                return Tareas(Primero,Primero.Siguiente,Nueva);
+            }
+            else 
+            {
+                return default;
+            }
+        }
+
+        List<T> Tareas(NodoPrioridad<T> Raiz,NodoPrioridad<T> Sig,List<T> Nueva) 
+        {
+            if (Sig == null)
+            {
+                Nueva.Add(Raiz.Data);
+                return Nueva;
+            }
+            else 
+            {
+                return Tareas(Raiz.Siguiente,Sig.Siguiente,Nueva);
+            }
+        }
+
     }
 }

@@ -8,9 +8,10 @@ namespace Lab_5_Diego_y_Rafa.Models
     public class ColaEstructura<T>
     {
         NodeEstructuras<T> Primero;
-        public NodeEstructuras<T> CrearEstructura(string Nombre)
+        public NodeEstructuras<T> CrearEstructura(string Nombre, T Data)
         {
             NodeEstructuras<T> Nuevo = new NodeEstructuras<T>();
+            Nuevo.Estructura = Data;
             Nuevo.UsuarioNombre = Nombre;
             return Nuevo;
         }
