@@ -119,60 +119,69 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                 }
             }
 
-                if (Cargo == "Developer")
+            if (Cargo == "Developer")
+            {
+                ColaPrioridad<TareaCola> LLamado = new ColaPrioridad<TareaCola>();
+                LLamado = Singleton.Instance.ColasDePrioridad.RetornarEstructura(nomrecola);
+                Singleton.Instance.TareasUsuarios = LLamado.Tareas();
+                for (int i = 0; i<Singleton.Instance.TareasUsuarios.Count;i++) 
                 {
-                    ColaPrioridad<TareaCola> LLamado = new ColaPrioridad<TareaCola>();
-                    LLamado = Singleton.Instance.ColasDePrioridad.RetornarEstructura(nomrecola);
-                    Singleton.Instance.TareasUsuarios = LLamado.Tareas();
-                    for (int i = 0; i<Singleton.Instance.TareasUsuarios.Count;i++) 
+                    int posicion = Tabla.FuncionHash(Singleton.Instance.TareasUsuarios[i].Nombre);
+                for (int j = 0; j < Tabla.ArrayHash[posicion].lista.Length; j++)
+                {
+                    if (Tabla.ArrayHash[posicion].lista[j].Titulo == Singleton.Instance.TareasUsuarios[i].Nombre)
+                    {
+                        var NuevoTarea = new Models.NodoHash
+                        {
+                            Titulo = Tabla.ArrayHash[posicion].lista[j].Titulo,
+                            Desciprcion = Tabla.ArrayHash[posicion].lista[j].Desciprcion,
+                            Proyecto = Tabla.ArrayHash[posicion].lista[j].Proyecto,
+                            Prioridad = Tabla.ArrayHash[posicion].lista[j].Prioridad,
+                            Fehca = Tabla.ArrayHash[posicion].lista[j].Fehca
+                        };
+                        Singleton.Instance.ListaTarea.Add(NuevoTarea);
+                    }
+                }
+                        
+                }
+                return View(Singleton.Instance.ListaTarea);
+            }
+            else if (Cargo == "Manager")
+            {
+                int Variable = TotalDeUsuarios;
+                for (int y = Variable; y == 1; y--) 
+                {
+                    ColaPrioridad<TareaCola> LLamado2 = new ColaPrioridad<TareaCola>();
+                    LLamado2 = Singleton.Instance.ColasDePrioridad.RetornarUsuarios(y);
+                    Singleton.Instance.TareasUsuarios = LLamado2.Tareas();
+
+                    for (int i = 0; i < Singleton.Instance.TareasUsuarios.Count; i++)
                     {
                         int posicion = Tabla.FuncionHash(Singleton.Instance.TareasUsuarios[i].Nombre);
-                    for (int j = 0; j < Tabla.ArrayHash[posicion].lista.Length; j++)
-                    {
-                        if (Tabla.ArrayHash[posicion].lista[j].Titulo == Singleton.Instance.TareasUsuarios[i].Nombre)
+                        for (int j = 0; j < Tabla.ArrayHash[posicion].lista.Length; j++)
                         {
-                            var NuevoTarea = new Models.NodoHash
+                            if (Tabla.ArrayHash[posicion].lista[j].Titulo == Singleton.Instance.TareasUsuarios[i].Nombre)
                             {
-                                Titulo = Tabla.ArrayHash[posicion].lista[j].Titulo,
-                                Desciprcion = Tabla.ArrayHash[posicion].lista[j].Desciprcion,
-                                Proyecto = Tabla.ArrayHash[posicion].lista[j].Proyecto,
-                                Prioridad = Tabla.ArrayHash[posicion].lista[j].Prioridad,
-                                Fehca = Tabla.ArrayHash[posicion].lista[j].Fehca
-                            };
-                            Singleton.Instance.ListaTarea.Add(NuevoTarea);
+                                var NuevoTarea = new Models.NodoHash
+                                {
+                                    Titulo = Tabla.ArrayHash[posicion].lista[j].Titulo,
+                                    Desciprcion = Tabla.ArrayHash[posicion].lista[j].Desciprcion,
+                                    Proyecto = Tabla.ArrayHash[posicion].lista[j].Proyecto,
+                                    Prioridad = Tabla.ArrayHash[posicion].lista[j].Prioridad,
+                                    Fehca = Tabla.ArrayHash[posicion].lista[j].Fehca
+                                };
+                                Singleton.Instance.ListaTarea.Add(NuevoTarea);
+                            }
                         }
                     }
-                        
-                    }
-                    return View(Singleton.Instance.ListaTarea);
                 }
-                else if (Cargo == "Manager")
-                {
-                    
-                    string NombredeUusario = Singleton.Instance.Usuario1.returnNode(Mayor).Nombre;
-                    Singleton.Instance.Usuario1.HeapSort(Mayor);
-                    int posicion = Tabla.FuncionHash(NombredeUusario);
-                    for (int i = 0; i < Tabla.ArrayHash[posicion].lista.Length; i++)
-                    {
-                        if (Tabla.ArrayHash[posicion].lista[i].Titulo == NombredeUusario)
-                        {
-                            var NuevoTarea = new Models.NodoHash
-                            {
-                                Titulo = Tabla.ArrayHash[posicion].lista[i].Titulo,
-                                Desciprcion = Tabla.ArrayHash[posicion].lista[i].Desciprcion,
-                                Proyecto = Tabla.ArrayHash[posicion].lista[i].Proyecto,
-                                Prioridad = Tabla.ArrayHash[posicion].lista[i].Prioridad,
-                                Fehca = Tabla.ArrayHash[posicion].lista[i].Fehca
-                            };
-                            Singleton.Instance.ListaTarea.Add(NuevoTarea);
-                        }
-                    }
-                    return View(Singleton.Instance.ListaTarea);
-                }
-                else
-                {
-                    return View(Singleton.Instance.ListaTarea);
-                }
+                
+                return View(Singleton.Instance.ListaTarea);
+            }
+            else
+            {
+                return View(Singleton.Instance.ListaTarea);
+            }
             
         }
         [HttpPost]
