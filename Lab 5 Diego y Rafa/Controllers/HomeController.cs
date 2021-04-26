@@ -115,10 +115,10 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                     ColaPrioridad<TareaCola> LLamado = new ColaPrioridad<TareaCola>();
                     LLamado = Singleton.Instance.ColasDePrioridad.RetornarEstructura(nomrecola);
                     Singleton.Instance.TareasUsuarios = LLamado.Tareas();
-                    for (int i = 0; i<Singleton.Instance.TablaUsuario.Count;i++) 
+                    for (int i = 0; i<=Singleton.Instance.TablaUsuario.Count;i++) 
                     {
                         int posicion = Tabla.FuncionHash(Singleton.Instance.TareasUsuarios[i].Nombre);
-                        if(Tabla.ArrayHash[posicion].lista[i].Titulo == Singleton.Instance.TareasUsuarios[i].Nombre)
+                        if (Tabla.ArrayHash[posicion].lista[i].Titulo == Singleton.Instance.TareasUsuarios[i].Nombre)
                         {
                             var NuevoTarea = new Models.NodoHash
                             {
