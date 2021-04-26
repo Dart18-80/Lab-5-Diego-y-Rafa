@@ -145,21 +145,7 @@ namespace LibreriaDeClasesLab
             }
             else
             {
-                EliminarHijo(Condicion);
                 Raiz.Siguiente = null;
-            }
-        }
-        void EliminarHijo(Delegate Condicion)
-        {
-            int i = Convert.ToInt32(Condicion.DynamicInvoke(Ultimo.Arriba.Derecha.Data, Ultimo.Data));
-            if (i == 0)
-            {
-                Ultimo.Arriba.Derecha = null;
-            }
-            int y = Convert.ToInt32(Condicion.DynamicInvoke(Ultimo.Arriba.Izquierda.Data, Ultimo.Data));
-            if (y == 0)
-            {
-                Ultimo.Arriba.Izquierda = null;
             }
         }
     }

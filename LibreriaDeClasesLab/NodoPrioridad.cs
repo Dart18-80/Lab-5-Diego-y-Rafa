@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LibreriaDeClasesLab
 {
-    public class NodoPrioridad<T>
+    public class NodoPrioridad<T> where T : IComparable
     {
         public T Data { get; set; }
         public NodoPrioridad<T> Derecha { get; set; }
