@@ -27,11 +27,16 @@ namespace Lab_5_Diego_y_Rafa.Controllers
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
 
             return View();
+        }
+
+        public IActionResult EliminarPrimero()
+        {
+            Delagados Mayor = new Delagados(CallTareas.CompareToPrioridad);
+            return RedirectToAction("ListasTareas");
         }
         [HttpPost]
         public IActionResult Index(IFormCollection collection)
@@ -128,7 +133,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                                 Desciprcion = Tabla.ArrayHash[posicion].lista[0].Desciprcion,
                                 Proyecto = Tabla.ArrayHash[posicion].lista[0].Proyecto,
                                 Prioridad = Tabla.ArrayHash[posicion].lista[0].Prioridad,
-                                Fehca = Tabla.ArrayHash[posicion].lista[0   ].Fehca
+                                Fehca = Tabla.ArrayHash[posicion].lista[0].Fehca
                             };
                             Singleton.Instance.ListaTarea.Add(NuevoTarea);
                         }
