@@ -118,7 +118,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                     for (int i = 0; i<=Singleton.Instance.TablaUsuario.Count;i++) 
                     {
                         int posicion = Tabla.FuncionHash(Singleton.Instance.TareasUsuarios[i].Nombre);
-                        if (Tabla.ArrayHash[posicion].lista[i].Titulo == Singleton.Instance.TareasUsuarios[i].Nombre)
+                        if (Tabla.ArrayHash[posicion].lista[0].Titulo == Singleton.Instance.TareasUsuarios[i].Nombre)
                         {
                             var NuevoTarea = new Models.NodoHash
                             {
