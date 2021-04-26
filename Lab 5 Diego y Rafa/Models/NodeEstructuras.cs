@@ -6,9 +6,10 @@ using LibreriaDeClasesLab;
 
 namespace Lab_5_Diego_y_Rafa.Models
 {
-    public class NodeEstructuras<T> where T : IComparable
+    public class NodeEstructuras<T> 
     {
-        public NodeEstructuras<T> Estructura { get; set; }
+        public T Estructura { get; set; }
         public NodeEstructuras<T> Siguiente { get; set; }
+        public string UsuarioNombre { get; set; }
     }
 }

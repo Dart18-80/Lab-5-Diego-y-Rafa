@@ -21,5 +21,6 @@ namespace Lab_5_Diego_y_Rafa.Helpers
         public List<Cliente> TablaUsuario = new List<Cliente>();
         public List<NodoHash> ListaTarea = new List<NodoHash>();
         public ColaPrioridad<TareaCola> Usuario1 = new ColaPrioridad<TareaCola>();
+        public NodeEstructuras<ColaPrioridad<TareaCola>> ColasDePrioridad = new NodeEstructuras<ColaPrioridad<TareaCola>>();
     }
 }
