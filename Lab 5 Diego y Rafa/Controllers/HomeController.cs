@@ -36,6 +36,8 @@ namespace Lab_5_Diego_y_Rafa.Controllers
         public IActionResult EliminarPrimero()
         {
             Delagados Mayor = new Delagados(CallTareas.CompareToPrioridad);
+            Singleton.Instance.ColasDePrioridad.RetornarEstructura(nomrecola).returnNode(Mayor);
+            Singleton.Instance.ColasDePrioridad.RetornarEstructura(nomrecola).HeapSort(Mayor);
             return RedirectToAction("ListasTareas");
         }
         [HttpPost]
