@@ -196,10 +196,10 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                     Conntraseña = collection["Conntraseña"],
                     Cargo = collection["Cargo"]
                 };
+                Singleton.Instance.TotalUsuarios++;
                 if (Singleton.Instance.TablaUsuario.Count == 0)
                 {
                     Singleton.Instance.TablaUsuario.Add(NuevoCliente);
-                    Singleton.Instance.TotalUsuarios++;
                     return RedirectToAction("Index");
                 }
                 else
