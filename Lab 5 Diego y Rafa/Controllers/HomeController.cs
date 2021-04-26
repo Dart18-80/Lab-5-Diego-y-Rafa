@@ -149,7 +149,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
             else if (Cargo == "Manager")
             {
                 int Variable = Singleton.Instance.TotalUsuarios;
-                for (int y = Variable; y == 1; y--) 
+                for (int y = Variable; y >= 1; y--) 
                 {
                     ColaPrioridad<TareaCola> LLamado2 = new ColaPrioridad<TareaCola>();
                     LLamado2 = Singleton.Instance.ColasDePrioridad.RetornarUsuarios(y);
@@ -196,7 +196,10 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                     Conntraseña = collection["Conntraseña"],
                     Cargo = collection["Cargo"]
                 };
-                Singleton.Instance.TotalUsuarios++;
+                if (NuevoCliente.Cargo != "Manager") 
+                {
+                    Singleton.Instance.TotalUsuarios++;
+                }
                 if (Singleton.Instance.TablaUsuario.Count == 0)
                 {
                     Singleton.Instance.TablaUsuario.Add(NuevoCliente);
