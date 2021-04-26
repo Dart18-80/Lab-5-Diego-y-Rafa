@@ -110,6 +110,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
             {
                 if (Cargo == "Developer")
                 {
+
                     return View(Singleton.Instance.ListaTarea);
                 }
                 else if (Cargo == "Manager")
@@ -213,6 +214,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                 {
                     Tabla.AgregarTarea(posicion, NuevaTarea);
                     Singleton.Instance.Usuario1.InsertQueu(Singleton.Instance.Usuario1.CrearNodo(NuevaTareaCola));
+                    Singleton.Instance.ColasDePrioridad.Encolar(Singleton.Instance.ColasDePrioridad.CrearEstructura("Diego"));
                     Delagados Mayor = new Delagados(CallTareas.CompareToPrioridad);
                     Singleton.Instance.Usuario1.HeapSort(Mayor);
                     return View();

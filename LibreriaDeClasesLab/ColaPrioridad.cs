@@ -7,6 +7,7 @@ namespace LibreriaDeClasesLab
         NodoPrioridad<T> Primero;
         NodoPrioridad<T> Ultimo;
 
+
         public NodoPrioridad<T> CrearNodo(T Data) 
         {
             NodoPrioridad<T> Nuevo = new NodoPrioridad<T>();
@@ -148,5 +149,7 @@ namespace LibreriaDeClasesLab
                 Raiz.Siguiente = null;
             }
         }
+
+
     }
 }
