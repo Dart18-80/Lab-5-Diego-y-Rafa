@@ -133,23 +133,36 @@ namespace LibreriaDeClasesLab
 
         public T returnNode(Delegate Condicion)
         {
-                T Aux = Primero.Data;
-                Primero.Data = Ultimo.Data;
-                Delete(Primero, Condicion);
-                return Aux;
+           T Aux = Primero.Data;
+           Primero.Data = Ultimo.Data;
+            if (Primero.Siguiente != null)
+            {
+                Delete(Primero, Primero.Siguiente, Condicion);
+            }
+            else 
+            {
+                Primero = null;
+                Ultimo = null;
+            }
+            return Aux;
         }
-        void Delete(NodoPrioridad<T> Raiz, Delegate Condicion)
+        void Delete(NodoPrioridad<T> Raiz,NodoPrioridad<T> Sig, Delegate Condicion)
         {
-            if (Raiz.Siguiente.Siguiente != null)
+            if (Sig != null)
             {
-                Delete(Raiz.Siguiente, Condicion);
+                if (Raiz.Siguiente.Siguiente != null)
+                {
+                    Delete(Raiz.Siguiente,Sig.Siguiente, Condicion);
+                }
+                else
+                {
+                    Raiz.Siguiente = null;
+                }
             }
-            else
+            else 
             {
-                Raiz.Siguiente = null;
+               
             }
         }
-
-
     }
 }
