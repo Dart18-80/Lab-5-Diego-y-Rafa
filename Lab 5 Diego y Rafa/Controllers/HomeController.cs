@@ -21,6 +21,8 @@ namespace Lab_5_Diego_y_Rafa.Controllers
         delegate int Delagados(TareaCola Tarea1, TareaCola Tarea2);
         TareaCola CallTareas = new TareaCola();
 
+        int TotalDeUsuarios;
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -178,6 +180,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                 {
                     Singleton.Instance.TablaUsuario.Add(NuevoCliente);
                     return RedirectToAction("Index");
+                    TotalDeUsuarios++;
                 }
                 else
                 {

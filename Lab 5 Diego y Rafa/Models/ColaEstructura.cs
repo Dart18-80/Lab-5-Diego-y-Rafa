@@ -70,6 +70,35 @@ namespace Lab_5_Diego_y_Rafa.Models
             }
         }
 
+        public T RetornarUsuarios(int i) 
+        {
+            if (i == 1)
+            {
+                return Primero.Estructura;
+            }
+            else 
+            {
+                return RetornarUsuarios(i, Primero);
+            }
+        }
 
+        T RetornarUsuarios(int i, NodeEstructuras<T> Raiz) 
+        {
+            if (i == 1)
+            {
+                return Raiz.Estructura;
+            }
+            else 
+            {
+                if (Raiz.Siguiente != null)
+                {
+                    return RetornarUsuarios(i - 1, Raiz.Siguiente);
+                }
+                else 
+                {
+                    return Raiz.Estructura;
+                }
+            }
+        }
     }
 }
