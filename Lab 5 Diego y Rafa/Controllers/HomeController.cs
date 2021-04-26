@@ -199,8 +199,8 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                 if (Singleton.Instance.TablaUsuario.Count == 0)
                 {
                     Singleton.Instance.TablaUsuario.Add(NuevoCliente);
-                    return RedirectToAction("Index");
                     Singleton.Instance.TotalUsuarios++;
+                    return RedirectToAction("Index");
                 }
                 else
                 {
