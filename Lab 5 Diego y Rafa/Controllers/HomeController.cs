@@ -107,6 +107,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
         {
             Delagados Mayor = new Delagados(CallTareas.CompareToPrioridad);
             string Cargo = null;
+            Singleton.Instance.ListaTarea.Clear();
             for (int i = 0; i < Singleton.Instance.TablaUsuario.Count; i++)
             {
                 if (Singleton.Instance.TablaUsuario[i].NombreUsuario==nomrecola)
@@ -115,8 +116,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                     i = Singleton.Instance.TablaUsuario.Count - 1;
                 }
             }
-            if (true)//////////////////////////////
-            {
+
                 if (Cargo == "Developer")
                 {
                     ColaPrioridad<TareaCola> LLamado = new ColaPrioridad<TareaCola>();
@@ -125,18 +125,22 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                     for (int i = 0; i<Singleton.Instance.TareasUsuarios.Count;i++) 
                     {
                         int posicion = Tabla.FuncionHash(Singleton.Instance.TareasUsuarios[i].Nombre);
-                        if (Tabla.ArrayHash[posicion].lista[0].Titulo == Singleton.Instance.TareasUsuarios[i].Nombre)
+                    for (int j = 0; j < Tabla.ArrayHash[posicion].lista.Length; j++)
+                    {
+                        if (Tabla.ArrayHash[posicion].lista[j].Titulo == Singleton.Instance.TareasUsuarios[i].Nombre)
                         {
                             var NuevoTarea = new Models.NodoHash
                             {
-                                Titulo = Tabla.ArrayHash[posicion].lista[0].Titulo,
-                                Desciprcion = Tabla.ArrayHash[posicion].lista[0].Desciprcion,
-                                Proyecto = Tabla.ArrayHash[posicion].lista[0].Proyecto,
-                                Prioridad = Tabla.ArrayHash[posicion].lista[0].Prioridad,
-                                Fehca = Tabla.ArrayHash[posicion].lista[0].Fehca
+                                Titulo = Tabla.ArrayHash[posicion].lista[j].Titulo,
+                                Desciprcion = Tabla.ArrayHash[posicion].lista[j].Desciprcion,
+                                Proyecto = Tabla.ArrayHash[posicion].lista[j].Proyecto,
+                                Prioridad = Tabla.ArrayHash[posicion].lista[j].Prioridad,
+                                Fehca = Tabla.ArrayHash[posicion].lista[j].Fehca
                             };
                             Singleton.Instance.ListaTarea.Add(NuevoTarea);
                         }
+                    }
+                        
                     }
                     return View(Singleton.Instance.ListaTarea);
                 }
@@ -167,7 +171,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                 {
                     return View(Singleton.Instance.ListaTarea);
                 }
-            }
+            
         }
         [HttpPost]
         public IActionResult CrearUsuario(IFormCollection collection)

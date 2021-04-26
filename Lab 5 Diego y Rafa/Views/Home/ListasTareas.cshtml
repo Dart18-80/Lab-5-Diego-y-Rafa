@@ -10,6 +10,9 @@
     <a asp-action="Tarea">Crear nueva tarea</a>
 </p>
 <h3>Mis tareas Pendientes</h3>
+<div>
+    <a asp-action="EliminarPrimero">Eliminar Primera Tarea Cola</a>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -50,9 +53,7 @@
                 @Html.DisplayFor(modelItem => item.Fehca)
             </td>
             <td>
-                <div>
-                    <a asp-action="EliminarPrimero">Eliminar Primera Tarea Cola</a>
-                </div>
+                
             </td>
         </tr>
 }
