@@ -110,6 +110,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
             {
                 if (Cargo == "Developer")
                 {
+
                     return View(Singleton.Instance.ListaTarea);
                 }
                 else if (Cargo == "Manager")
