@@ -50,7 +50,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                 var NuevoCliente = new Models.Cliente
                 {
                     NombreUsuario = collection["NombreUsuario"],
-                    Conntraseña = collection["Conntraseña"],
+                    Contraseña = collection["Conntraseña"],
                 };
                 if (Singleton.Instance.TablaUsuario.Count==0)
                 {
@@ -62,7 +62,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                 {
                     while (Singleton.Instance.TablaUsuario.Count>contador)
                     {
-                        if (Singleton.Instance.TablaUsuario[contador].NombreUsuario==NuevoCliente.NombreUsuario && Singleton.Instance.TablaUsuario[contador].Conntraseña == NuevoCliente.Conntraseña)
+                        if (Singleton.Instance.TablaUsuario[contador].NombreUsuario==NuevoCliente.NombreUsuario && Singleton.Instance.TablaUsuario[contador].Contraseña == NuevoCliente.Contraseña)
                         {
                             if (Singleton.Instance.TablaUsuario[contador].Cargo=="Manager")
                             {
@@ -141,8 +141,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                         };
                         Singleton.Instance.ListaTarea.Add(NuevoTarea);
                     }
-                }
-                        
+                }           
                 }
                 return View(Singleton.Instance.ListaTarea);
             }
@@ -193,7 +192,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                 var NuevoCliente = new Models.Cliente
                 {
                     NombreUsuario = collection["NombreUsuario"],
-                    Conntraseña = collection["Conntraseña"],
+                    Contraseña = collection["Conntraseña"],
                     Cargo = collection["Cargo"]
                 };
                 Singleton.Instance.TotalUsuarios++;
