@@ -23,5 +23,6 @@ namespace Lab_5_Diego_y_Rafa.Helpers
         public List<TareaCola> TareasUsuarios = new List<TareaCola>();
         public ColaPrioridad<TareaCola> Usuario1 = new ColaPrioridad<TareaCola>();
         public ColaEstructura<ColaPrioridad<TareaCola>> ColasDePrioridad = new ColaEstructura<ColaPrioridad<TareaCola>>();
+        public int TotalUsuarios;
     }
 }

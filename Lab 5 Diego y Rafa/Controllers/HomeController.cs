@@ -21,7 +21,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
         delegate int Delagados(TareaCola Tarea1, TareaCola Tarea2);
         TareaCola CallTareas = new TareaCola();
 
-        int TotalDeUsuarios;
+        
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -148,7 +148,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
             }
             else if (Cargo == "Manager")
             {
-                int Variable = TotalDeUsuarios;
+                int Variable = Singleton.Instance.TotalUsuarios;
                 for (int y = Variable; y == 1; y--) 
                 {
                     ColaPrioridad<TareaCola> LLamado2 = new ColaPrioridad<TareaCola>();
@@ -200,7 +200,7 @@ namespace Lab_5_Diego_y_Rafa.Controllers
                 {
                     Singleton.Instance.TablaUsuario.Add(NuevoCliente);
                     return RedirectToAction("Index");
-                    TotalDeUsuarios++;
+                    Singleton.Instance.TotalUsuarios++;
                 }
                 else
                 {
