@@ -171,7 +171,6 @@ namespace LibreriaDeClasesLab
             List<T> Nueva = new List<T>();
             if (Primero != null)
             {
-                Nueva.Add(Primero.Data);
                 return Tareas(Primero,Primero.Siguiente,Nueva);
             }
             else 
@@ -189,6 +188,7 @@ namespace LibreriaDeClasesLab
             }
             else 
             {
+                Nueva.Add(Raiz.Data);
                 return Tareas(Raiz.Siguiente,Sig.Siguiente,Nueva);
             }
         }
